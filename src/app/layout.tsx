@@ -16,7 +16,9 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
     <html lang="fr">
       <body className={`${geistSans.variable} ${geistMono.variable} antialiased`}>
         <ThemeProvider>
-          <ThemeToggle/>
+          <header>
+            <ThemeToggle />
+          </header>
           {children}
         </ThemeProvider>
       </body>

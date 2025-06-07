@@ -3,8 +3,8 @@
 import { useEffect, useState } from "react"
 
 export default function ThemeToggle() {
-  const [theme, setTheme] = useState<"light" | "dark">("light")
-
+  const [theme, setTheme] = useState<"light" | "dark">("light")   
+  const themeIcon = theme === "light" ? "☀️" : "🌙"
   useEffect(() => {
     const saved = localStorage.getItem("theme") as "light" | "dark" | null
     const prefersDark = window.matchMedia("(prefers-color-scheme: dark)").matches
@@ -20,12 +20,14 @@ export default function ThemeToggle() {
     document.body.dataset.theme = next
   }
 
+const ThemeToDisplay = theme.charAt(0).toUpperCase() + theme.slice(1).toLowerCase();
+
   return (
     <button
       onClick={toggle}
-      className="px-4 py-2 rounded text-sm border"
+      className="ThemeBtn px-4 py-2 rounded text-sm border"
     >
-      Thème : {theme}
+      {ThemeToDisplay} mode {themeIcon}
     </button>
   )
 }

@@ -19,4 +19,13 @@ body {
   background-color: var(--color-bg);
   color: var(--color-text);
   transition: background-color 0.3s, color 0.3s;
+  display: flex;
+  flex-direction: column;
 }
+
+.ThemeBtn {
+  width:fit-content;
+  margin: 5px;
+  border: 2px var(--color-text) solid;
+}
+
