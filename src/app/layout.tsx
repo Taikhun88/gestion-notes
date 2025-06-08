@@ -1,6 +1,6 @@
 import ThemeProvider from "@/components/ThemeProvider"
 import "./globals.css"
-import ThemeToggle from "@/components/ThemeToggle"
+import Header from "@/components/Header"
 
 export const metadata = {
   title: "App Notes",
@@ -12,18 +12,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
     <html lang="fr">
       <body>
         <ThemeProvider>
-          <header>
-            <div id="logo">
-              <span>Loc'Event</span> 
-            </div>
-            <div>
-              <a href="#">Lien1</a>
-              <a href="#">Lien2</a>
-              <a href="#">Lien3</a>
-
-              <ThemeToggle />
-            </div>
-          </header>
+          <Header/>
           <hr />
           {children}
         </ThemeProvider>
