@@ -1,6 +1,20 @@
 import ThemeProvider from "@/components/ThemeProvider"
 import "./globals.css"
 import Header from "@/components/Header"
+import { Noto_Sans_Display, Oxanium } from "next/font/google"
+import Main from "@/components/Main"
+
+const notoSansDisplay = Noto_Sans_Display({
+  subsets: ['latin'],
+  weight: ['400', '700'],
+  display: 'swap',
+})
+
+const oxanium = Oxanium({
+  subsets: ['latin'],
+  weight: ['400', '700'],
+  display: 'swap'
+})
 
 export const metadata = {
   title: "App Notes",
@@ -10,12 +24,14 @@ export const metadata = {
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
     <html lang="fr">
-      <body>
+      <body className={notoSansDisplay.className}>
         <ThemeProvider>
-          <Header/>
+          <Header />
           <hr />
-          {children}
-        </ThemeProvider>
+          <Main className={oxanium.className}>            
+            {children}
+          </Main>
+          </ThemeProvider>
       </body>
     </html>
   )
