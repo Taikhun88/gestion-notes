@@ -1,10 +1,8 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit'
 
 export type Note = {
-  id: string
   title: string
   content: string
-  createdAt: string
 }
 
 type NotesState = {

@@ -1,8 +1,8 @@
-import ThemeProvider from "@/components/ThemeProvider"
 import "./globals.css"
 import Header from "@/components/Header"
 import { Noto_Sans_Display, Oxanium } from "next/font/google"
 import Main from "@/components/Main"
+import AppProvider from "@/components/AppProvider"
 
 const notoSansDisplay = Noto_Sans_Display({
   subsets: ['latin'],
@@ -25,13 +25,13 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
   return (
     <html lang="fr">
       <body className={notoSansDisplay.className}>
-        <ThemeProvider>
+        <AppProvider>
           <Header />
           <hr />
           <Main className={oxanium.className}>            
             {children}
           </Main>
-          </ThemeProvider>
+          </AppProvider>
       </body>
     </html>
   )

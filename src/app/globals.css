@@ -3,16 +3,22 @@
 :root {
   --color-bg: white;
   --color-text: black;
+  --input-bg: #f3f4f6;
+  --btn-bg: #ddbd7a;
 }
 
 body[data-theme="dark"] {
   --color-bg: #000;
   --color-text: #fff;
+  --input-bg: #374151;
+  --btn-bg: #8A2BE2;
 }
 
 body[data-theme="light"] {
   --color-bg: #fff;
   --color-text: #000;
+  --input-bg: #f3f4f6;
+  --btn-bg: #ddbd7a;
 }
 
 body {
@@ -66,4 +72,20 @@ a {
   100% {
     background-position: 100% 50%;
   }
+}
+
+.noteFormLabel {
+  color: var(--color-text);
+  font-weight: bolder;
+}
+
+.noteFormInput, 
+.noteFormTextArea {
+  background-color: var(--input-bg);
+  color: var(--color-text);
+  border: 0.5px var(--color-text) solid;
+}
+
+.noteBtnForm {
+  background-color:var(--btn-bg);
 }
