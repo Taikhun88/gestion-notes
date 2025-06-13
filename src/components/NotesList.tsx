@@ -3,6 +3,7 @@
 import { useEffect } from 'react';
 import { useAppDispatch, useAppSelector } from '@/store/hooks';
 import { fetchNotes } from '@/store/notesSlice';
+import NoteCard from './NoteCard';
 
 export default function NotesList() {
   const dispatch = useAppDispatch();
@@ -17,11 +18,14 @@ export default function NotesList() {
     <div>
       {loading && <p>Chargement...</p>}
         {/* TODO REFAIRE DESIGN NOTE CARD */}
-      <ul>
+      <div className="ListNotes">
+        <NoteCard/>
+      </div>
+      {/* <ul>
         {notes.map((note) => (
           <li key={note.id}>{note.title}</li>
         ))}
-      </ul>
+      </ul> */}
     </div>
   );
 }
