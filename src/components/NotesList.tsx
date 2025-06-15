@@ -17,15 +17,9 @@ export default function NotesList() {
   return (
     <div>
       {loading && <p>Chargement...</p>}
-        {/* TODO REFAIRE DESIGN NOTE CARD */}
       <div className="ListNotes">
         <NoteCard/>
       </div>
-      {/* <ul>
-        {notes.map((note) => (
-          <li key={note.id}>{note.title}</li>
-        ))}
-      </ul> */}
     </div>
   );
 }
