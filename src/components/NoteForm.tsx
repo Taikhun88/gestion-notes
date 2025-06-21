@@ -3,7 +3,7 @@
 
 import { useState } from 'react';
 import { useAppDispatch } from '@/store/hooks';
-import { addNote } from '@/store/notesSlice';
+import { addNote, postNote } from '@/store/notesSlice';
 import { useRouter } from 'next/navigation';
 import { log } from 'console';
 
@@ -15,36 +15,29 @@ export default function NoteForm() {
   const [content, setContent] = useState('');
   const [category, setCategory] = useState('1');
 
-  const handleSubmit = (e: React.FormEvent) => {
-    e.preventDefault();
-    // console.log(category);
-    fetch("http://localhost:8000/api/category/" + category)
-      .then(response => {
-        if (!response.ok) {
-          throw new Error('Erreur lors de la récupération de la catégorie');
-        }
-        return response.json();
-      })
-      .then(data => {
-        const fetchedCategory = data;
-        const newNote = {
-          id: "",
-          title,
-          content,
-          createdAt: "",
-          category: fetchedCategory
-        };
+const handleSubmit = async (e: React.FormEvent) => {
+  e.preventDefault();
 
-        dispatch(addNote(newNote));
-        router.push('/notes'); // redirection
-      })
-      .catch(error => {
-        console.error("Erreur :", error);
-      });
+  try {
+    const response = await fetch("http://localhost:8000/api/category/" + category);
+    if (!response.ok) throw new Error("Erreur lors de la récupération de la catégorie");
 
+    const fetchedCategory = await response.json();
 
+    const newNote = {
+      id: "",
+      title,
+      content,
+      createdAt:"",
+      category: fetchedCategory,
+    };
 
-  };
+    dispatch(postNote(newNote));
+    router.push('/notes');
+  } catch (error) {
+    console.error("Erreur :", error);
+  }
+};
 
   return (
     <form onSubmit={handleSubmit} className="max-w-xl mx-auto p-4 space-y-6">
