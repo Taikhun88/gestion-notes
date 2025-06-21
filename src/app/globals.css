@@ -114,19 +114,6 @@ a {
   border: 1px var(--color-text) solid;
 }
 
-.NoteCard.blue {
-  background-color: blue;
-}
-.NoteCard.green {
-  background-color: green;
-}
-.NoteCard.white {
-  background-color: white;
-}
-.NoteCard.black {
-  background-color: black;
-}
-
 .CardTitle {
   font-size: larger;
   font-weight: bold;
