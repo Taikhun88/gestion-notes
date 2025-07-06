@@ -14,8 +14,19 @@ export type Note = {
   createdAt: string;
 };
 
+export type Category = {
+  id: string;
+  color: string;
+  name: string;
+};
+
 export const fetchNotes = createAsyncThunk('notes/fetchNotes', async () => {
   const response = await axios.get<Note[]>('/notes');
+  return response.data;
+});
+
+export const fetchCategories = createAsyncThunk('notes/fetchCategories', async () => {
+  const response = await axios.get<Category[]>('/category');
   return response.data;
 });
 
@@ -31,6 +42,7 @@ const notesSlice = createSlice({
   name: 'notes',
   initialState: {
     notes: [] as Note[],
+    categories: [] as Category[],
     loading: false,
     error: null as string | null,
   },
@@ -60,6 +72,17 @@ const notesSlice = createSlice({
         state.notes.push(action.payload);        
       })
       .addCase(postNote.rejected, (state, action) => {
+        state.loading = false;
+        state.error = action.error.message ?? 'Erreur de chargement';
+      })
+      .addCase(fetchCategories.pending, (state) => {
+        state.loading = true;
+      })
+      .addCase(fetchCategories.fulfilled, (state, action) => {
+        state.loading = false;
+        state.categories = action.payload; 
+      })
+      .addCase(fetchCategories.rejected, (state, action) => {
         state.loading = false;
         state.error = action.error.message ?? 'Erreur de chargement';
       });

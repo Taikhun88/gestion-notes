@@ -3,9 +3,8 @@
 
 import { useState } from 'react';
 import { useAppDispatch } from '@/store/hooks';
-import { addNote, postNote } from '@/store/notesSlice';
+import { postNote } from '@/store/notesSlice';
 import { useRouter } from 'next/navigation';
-import { log } from 'console';
 
 export default function NoteForm() {
   const dispatch = useAppDispatch();
