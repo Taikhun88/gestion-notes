@@ -38,6 +38,14 @@ export const postNote = createAsyncThunk(
   }
 );
 
+export const putNote = createAsyncThunk(
+  'notes/putNote',
+  async (putNote: Note) => {
+    const response = await axios.put<Note>("/notes/"+`${putNote.id}`, putNote);
+    return response.data;
+  }
+);
+
 const notesSlice = createSlice({
   name: 'notes',
   initialState: {
@@ -68,6 +76,17 @@ const notesSlice = createSlice({
         state.loading = true;
       })
       .addCase(postNote.fulfilled, (state, action) => {
+        state.loading = false;
+        state.notes.push(action.payload);        
+      })
+      .addCase(putNote.rejected, (state, action) => {
+        state.loading = false;
+        state.error = action.error.message ?? 'Erreur de chargement';
+      })
+      .addCase(putNote.pending, (state) => {
+        state.loading = true;
+      })
+      .addCase(putNote.fulfilled, (state, action) => {
         state.loading = false;
         state.notes.push(action.payload);        
       })

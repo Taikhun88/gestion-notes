@@ -18,7 +18,7 @@ export default function NoteCard() {
         <div className={"NoteCard " + categoryColors[note.category.color]} key={note.id}>
           <div className="flex items-center items-baseline justify-between mb-3">
             <h2 className="CardTitle">{note.title}</h2>
-            <NoteCategoryDropdown idCategory={note.category.id}/>
+            <NoteCategoryDropdown idNote={note.id} idCategory={note.category.id}/>
           </div>
           <p className="CardContent">{note.content}</p>
         </div>

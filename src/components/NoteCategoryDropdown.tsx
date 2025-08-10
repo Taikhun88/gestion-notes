@@ -1,33 +1,51 @@
 import { useEffect, useRef, useState } from 'react';
 import { IoCalendarOutline } from "react-icons/io5";
-import { useAppSelector } from '@/store/hooks';
+import { useAppDispatch, useAppSelector } from '@/store/hooks';
 import { LuBrain } from "react-icons/lu";
 import { CiStickyNote } from "react-icons/ci";
 import { LuListTodo } from "react-icons/lu";
+import { putNote } from '@/store/notesSlice';
+import { log } from 'console';
 
 interface NoteCategoryDropdownProps {
-    idCategory?: string
+  idNote: string;
+  idCategory?: string
 }
-// TODO Finir le dropdown avec la boucle
 const categoryListIcon: Record<number, React.ReactElement> = {
-    1: <CiStickyNote />,
-    2: <LuListTodo />,
-    3: <LuBrain />,
-    4: <IoCalendarOutline />
+  1: <CiStickyNote />,
+  2: <LuListTodo />,
+  3: <LuBrain />,
+  4: <IoCalendarOutline />
 };
 
-export default function DropdownRadio({ idCategory }: NoteCategoryDropdownProps) {
+export default function DropdownRadio({ idNote, idCategory }: NoteCategoryDropdownProps) {
   const [isOpen, setIsOpen] = useState(false);
   const [selectedCategoryId, setSelectedCategoryId] = useState<string | undefined>(idCategory);
   const categories = useAppSelector((state) => state.notes.categories);
   const dropdownRef = useRef<HTMLDivElement>(null);
+  const noteCategoryList = useAppSelector((state) => state.notes.notes);
+  const dispatch = useAppDispatch();
 
   const categoryIcon = categoryListIcon[Number(selectedCategoryId)];
 
   const toggleDropdown = () => setIsOpen((prev) => !prev);
   const handleSelect = (id: string) => {
     setSelectedCategoryId(id);
-    // TODO Enregistrer la valeur du choix sélectionné via le dropdown dans la bdd
+    const noteToUpdate = noteCategoryList.find((note) => note.id === idNote);
+
+    console.log(noteToUpdate);
+    if (noteToUpdate) {
+      const updatedNote = {
+        ...noteToUpdate,
+        category: {
+          ...noteToUpdate.category,
+          id
+        }
+      }
+
+      dispatch(putNote(updatedNote));
+    };
+    // TODO adapter la couleur de la catégorie à la sélection d'une nouvelle
   };
 
   // 🔒 Fermer le dropdown si clic en dehors
