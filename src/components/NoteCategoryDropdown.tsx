@@ -4,7 +4,7 @@ import { useAppDispatch, useAppSelector } from '@/store/hooks';
 import { LuBrain } from "react-icons/lu";
 import { CiStickyNote } from "react-icons/ci";
 import { LuListTodo } from "react-icons/lu";
-import { putNote } from '@/store/notesSlice';
+import { editNote, putNote } from '@/store/notesSlice';
 import { log } from 'console';
 
 interface NoteCategoryDropdownProps {
@@ -32,18 +32,22 @@ export default function DropdownRadio({ idNote, idCategory }: NoteCategoryDropdo
   const handleSelect = (id: string) => {
     setSelectedCategoryId(id);
     const noteToUpdate = noteCategoryList.find((note) => note.id === idNote);
+    const selectedCategory = categories.find((cat) => cat.id === id);
 
-    console.log(noteToUpdate);
-    if (noteToUpdate) {
+    console.log(selectedCategory);
+    if (noteToUpdate && selectedCategory) {
       const updatedNote = {
         ...noteToUpdate,
         category: {
           ...noteToUpdate.category,
-          id
-        }
+          id: selectedCategory.id,
+          name: selectedCategory.name,
+          color: selectedCategory.color,
+        },
       }
 
       dispatch(putNote(updatedNote));
+      // dispatch(editNote(updatedNote));
     };
     // TODO adapter la couleur de la catégorie à la sélection d'une nouvelle
   };
