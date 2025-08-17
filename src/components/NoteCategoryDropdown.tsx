@@ -1,4 +1,4 @@
-import { useEffect, useRef, useState } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import { IoCalendarOutline } from "react-icons/io5";
 import { useAppDispatch, useAppSelector } from '@/store/hooks';
 import { LuBrain } from "react-icons/lu";
@@ -49,7 +49,6 @@ export default function DropdownRadio({ idNote, idCategory }: NoteCategoryDropdo
       dispatch(putNote(updatedNote));
       // dispatch(editNote(updatedNote));
     };
-    // TODO adapter la couleur de la catégorie à la sélection d'une nouvelle
   };
 
   // 🔒 Fermer le dropdown si clic en dehors

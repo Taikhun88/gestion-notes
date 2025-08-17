@@ -52,6 +52,15 @@ export const putNote = createAsyncThunk(
   }
 );
 
+export const deleteNote = createAsyncThunk(
+  "notes/deleteNote",
+  async (id: string | number) => {
+    await axios.delete(`/notes/${id}`);
+    return id; // on retourne l'id pour mettre à jour le state
+  }
+);
+
+
 const notesSlice = createSlice({
   name: "notes",
   initialState: {
@@ -113,6 +122,17 @@ const notesSlice = createSlice({
         }
       })
       .addCase(postNote.rejected, (state, action) => {
+        state.loading = false;
+        state.error = action.error.message ?? "Erreur de chargement";
+      })
+      .addCase(deleteNote.pending, (state) => {
+        state.loading = true;
+      })
+      .addCase(deleteNote.fulfilled, (state, action) => {
+        state.loading = false;
+        state.notes = state.notes.filter(note => note.id !== action.payload);
+      })
+      .addCase(deleteNote.rejected, (state, action) => {
         state.loading = false;
         state.error = action.error.message ?? "Erreur de chargement";
       })
